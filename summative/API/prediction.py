@@ -17,9 +17,8 @@ app = FastAPI(
 # CORS ensures that ONLY your authorized Flutter app can request predictions.
 # This prevents random, malicious websites from spamming your server.
 ALLOWED_ORIGINS = [
-    "http://localhost:5000",       # Local Flutter web test
-    "http://localhost:8000",       # API local testing
-    "https://your-flutter-app.web.app" # Production Flutter App (Example)
+    "https://linear-regression-task.onrender.com",       # Local Flutter web test
+
 ]
 
 app.add_middleware(

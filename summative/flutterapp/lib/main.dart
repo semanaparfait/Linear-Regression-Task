@@ -13,10 +13,7 @@ class YouthUnemploymentApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Youth Job Creation Tool',
-      theme: ThemeData(
-        primarySwatch: Colors.indigo,
-        useMaterial3: true,
-      ),
+      theme: ThemeData(primarySwatch: Colors.indigo, useMaterial3: true),
       home: const PredictionScreen(),
     );
   }
@@ -33,8 +30,200 @@ class _PredictionScreenState extends State<PredictionScreen> {
   final _formKey = GlobalKey<FormState>();
 
   // Input Controllers
-  final TextEditingController _countryController = TextEditingController(text: "Zambia");
+  String _selectedCountry = "Zambia";
   String _sex = "Female";
+
+  static const List<String> _countries = [
+    'Afghanistan',
+    'Albania',
+    'Algeria',
+    'Angola',
+    'Argentina',
+    'Armenia',
+    'Australia',
+    'Austria',
+    'Azerbaijan',
+    'Bahamas',
+    'Bahrain',
+    'Bangladesh',
+    'Barbados',
+    'Belarus',
+    'Belgium',
+    'Belize',
+    'Benin',
+    'Bhutan',
+    'Bolivia',
+    'Bosnia and Herzegovina',
+    'Botswana',
+    'Brazil',
+    'Brunei Darussalam',
+    'Bulgaria',
+    'Burkina Faso',
+    'Burundi',
+    'Cabo Verde',
+    'Cambodia',
+    'Cameroon',
+    'Canada',
+    'Central African Republic',
+    'Chad',
+    'Channel Islands',
+    'Chile',
+    'China',
+    'Colombia',
+    'Comoros',
+    'Congo',
+    'Congo, Democratic Republic of the',
+    'Costa Rica',
+    'Croatia',
+    'Cuba',
+    'Cyprus',
+    'Czechia',
+    'Denmark',
+    'Djibouti',
+    'Dominican Republic',
+    'Ecuador',
+    'Egypt',
+    'El Salvador',
+    'Equatorial Guinea',
+    'Eritrea',
+    'Estonia',
+    'Eswatini',
+    'Ethiopia',
+    'Fiji',
+    'Finland',
+    'France',
+    'French Polynesia',
+    'Gabon',
+    'Gambia',
+    'Georgia',
+    'Germany',
+    'Ghana',
+    'Greece',
+    'Guam',
+    'Guatemala',
+    'Guinea',
+    'Guinea-Bissau',
+    'Guyana',
+    'Haiti',
+    'Honduras',
+    'Hong Kong, China',
+    'Hungary',
+    'Iceland',
+    'India',
+    'Indonesia',
+    'Iran, Islamic Republic of',
+    'Iraq',
+    'Ireland',
+    'Israel',
+    'Italy',
+    'Ivory Coast',
+    'Jamaica',
+    'Japan',
+    'Jordan',
+    'Kazakhstan',
+    'Kenya',
+    "Korea, Democratic People's Republic of",
+    'Korea, Republic of',
+    'Kuwait',
+    'Kyrgyzstan',
+    "Lao People's Democratic Republic",
+    'Latvia',
+    'Lebanon',
+    'Lesotho',
+    'Liberia',
+    'Libya',
+    'Lithuania',
+    'Luxembourg',
+    'Macau, China',
+    'Madagascar',
+    'Malawi',
+    'Malaysia',
+    'Maldives',
+    'Mali',
+    'Malta',
+    'Mauritania',
+    'Mauritius',
+    'Mexico',
+    'Moldova, Republic of',
+    'Mongolia',
+    'Montenegro',
+    'Morocco',
+    'Mozambique',
+    'Myanmar',
+    'Namibia',
+    'Nepal',
+    'Netherlands',
+    'New Caledonia',
+    'New Zealand',
+    'Nicaragua',
+    'Niger',
+    'Nigeria',
+    'North Macedonia',
+    'Norway',
+    'Oman',
+    'Pakistan',
+    'Palestinian Territories',
+    'Panama',
+    'Papua New Guinea',
+    'Paraguay',
+    'Peru',
+    'Philippines',
+    'Poland',
+    'Portugal',
+    'Puerto Rico',
+    'Qatar',
+    'Romania',
+    'Russian Federation',
+    'Rwanda',
+    'Saint Lucia',
+    'Saint Vincent and the Grenadines',
+    'Samoa',
+    'Sao Tome and Principe',
+    'Saudi Arabia',
+    'Senegal',
+    'Serbia',
+    'Sierra Leone',
+    'Singapore',
+    'Slovakia',
+    'Slovenia',
+    'Solomon Islands',
+    'Somalia',
+    'South Africa',
+    'South America',
+    'South Sudan',
+    'Spain',
+    'Sri Lanka',
+    'Sudan',
+    'Suriname',
+    'Sweden',
+    'Switzerland',
+    'Syrian Arab Republic',
+    'Taiwan, China',
+    'Tajikistan',
+    'Tanzania, United Republic of',
+    'Thailand',
+    'Timor-Leste',
+    'Togo',
+    'Tonga',
+    'Trinidad and Tobago',
+    'Tunisia',
+    'Turkey',
+    'Turkmenistan',
+    'Uganda',
+    'Ukraine',
+    'United Arab Emirates',
+    'United Kingdom',
+    'United States',
+    'United States Virgin Islands',
+    'Uruguay',
+    'Uzbekistan',
+    'Vanuatu',
+    'Venezuela, Bolivarian Republic of',
+    'Viet Nam',
+    'Yemen',
+    'Zambia',
+    'Zimbabwe',
+  ];
 
   // Historical years controllers (2014 - 2023)
   final Map<int, TextEditingController> _yearControllers = {
@@ -66,7 +255,7 @@ class _PredictionScreenState extends State<PredictionScreen> {
 
     // Construct the payload JSON matching your FastAPI Pydantic schema
     final Map<String, dynamic> requestBody = {
-      "country_name": _countryController.text,
+      "country_name": _selectedCountry,
       "sex": _sex,
       "y2014": double.parse(_yearControllers[2014]!.text),
       "y2015": double.parse(_yearControllers[2015]!.text),
@@ -94,14 +283,16 @@ class _PredictionScreenState extends State<PredictionScreen> {
           _predictionResult = "Predicted 2024 Unemployment Rate: $prediction%";
         });
       } else {
-        final errorDetail = jsonDecode(response.body)["detail"] ?? "Unprocessable inputs.";
+        final errorDetail =
+            jsonDecode(response.body)["detail"] ?? "Unprocessable inputs.";
         setState(() {
           _predictionResult = "Error: $errorDetail";
         });
       }
     } catch (e) {
       setState(() {
-        _predictionResult = "Could not connect to the API server. Please check your internet connection.";
+        _predictionResult =
+            "Could not connect to the API server. Please check your internet connection.";
       });
     } finally {
       setState(() {
@@ -114,7 +305,10 @@ class _PredictionScreenState extends State<PredictionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Youth Job Creation Predictor', style: TextStyle(color: Colors.white)),
+        title: const Text(
+          'Youth Job Creation Predictor',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: Colors.indigo,
         centerTitle: true,
       ),
@@ -133,7 +327,11 @@ class _PredictionScreenState extends State<PredictionScreen> {
                   child: Text(
                     "Our Mission: Identifying and predicting youth unemployment drivers globally to establish strategic youth job creation policies.",
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.indigo),
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.indigo,
+                    ),
                   ),
                 ),
               ),
@@ -143,13 +341,21 @@ class _PredictionScreenState extends State<PredictionScreen> {
               Row(
                 children: [
                   Expanded(
-                    child: TextFormField(
-                      controller: _countryController,
+                    child: DropdownButtonFormField<String>(
+                      value: _selectedCountry,
+                      isExpanded: true,
                       decoration: const InputDecoration(
                         labelText: "Country",
                         border: OutlineInputBorder(),
                       ),
-                      validator: (v) => v!.isEmpty ? "Required" : null,
+                      items: _countries.map((c) {
+                        return DropdownMenuItem(
+                          value: c,
+                          child: Text(c, overflow: TextOverflow.ellipsis),
+                        );
+                      }).toList(),
+                      onChanged: (val) =>
+                          setState(() => _selectedCountry = val!),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -191,7 +397,9 @@ class _PredictionScreenState extends State<PredictionScreen> {
                   int year = _yearControllers.keys.elementAt(index);
                   return TextFormField(
                     controller: _yearControllers[year],
-                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
                     decoration: InputDecoration(
                       labelText: "$year Rate (%)",
                       border: const OutlineInputBorder(),
@@ -217,11 +425,17 @@ class _PredictionScreenState extends State<PredictionScreen> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.indigo,
                         padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                       ),
                       child: const Text(
                         "Predict",
-                        style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
               const SizedBox(height: 24),
@@ -231,10 +445,14 @@ class _PredictionScreenState extends State<PredictionScreen> {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: _predictionResult.startsWith("Error") ? Colors.red.shade50 : Colors.green.shade50,
+                    color: _predictionResult.startsWith("Error")
+                        ? Colors.red.shade50
+                        : Colors.green.shade50,
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                      color: _predictionResult.startsWith("Error") ? Colors.red : Colors.green,
+                      color: _predictionResult.startsWith("Error")
+                          ? Colors.red
+                          : Colors.green,
                     ),
                   ),
                   child: Text(
@@ -243,7 +461,9 @@ class _PredictionScreenState extends State<PredictionScreen> {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: _predictionResult.startsWith("Error") ? Colors.red : Colors.green.shade900,
+                      color: _predictionResult.startsWith("Error")
+                          ? Colors.red
+                          : Colors.green.shade900,
                     ),
                   ),
                 ),

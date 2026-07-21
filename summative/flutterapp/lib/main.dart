@@ -280,7 +280,8 @@ class _PredictionScreenState extends State<PredictionScreen> {
         final Map<String, dynamic> responseData = jsonDecode(response.body);
         final prediction = responseData["predicted_youth_unemployment_2024"];
         setState(() {
-          _predictionResult = "Predicted 2024 Unemployment Rate: $prediction%";
+          _predictionResult =
+              "Predicted 2024 Unemployment Rate for $_selectedCountry: $prediction%";
         });
       } else {
         final errorDetail =
@@ -342,7 +343,7 @@ class _PredictionScreenState extends State<PredictionScreen> {
                 children: [
                   Expanded(
                     child: DropdownButtonFormField<String>(
-                      value: _selectedCountry,
+                      initialValue: _selectedCountry,
                       isExpanded: true,
                       decoration: const InputDecoration(
                         labelText: "Country",
@@ -361,7 +362,7 @@ class _PredictionScreenState extends State<PredictionScreen> {
                   const SizedBox(width: 12),
                   Expanded(
                     child: DropdownButtonFormField<String>(
-                      value: _sex,
+                      initialValue: _sex,
                       decoration: const InputDecoration(
                         labelText: "Gender",
                         border: OutlineInputBorder(),

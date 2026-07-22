@@ -124,7 +124,7 @@ The app calls the FastAPI prediction endpoint and sends the required inputs in J
 ## Project Structure
 
 ```text
-ml_summative/
+summative/
 ├── global_unemployment_data.csv
 ├── Linear_Regression.ipynb
 ├── README.md

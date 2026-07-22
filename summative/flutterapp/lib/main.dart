@@ -190,7 +190,7 @@ class _PredictionScreenState extends State<PredictionScreen> {
                 child: Padding(
                   padding: EdgeInsets.all(12.0),
                   child: Text(
-                    "Our Mission: Identifying and predicting youth unemployment drivers globally to establish strategic youth job creation policies.",
+                   "My mission is youth job creation. I want to understand what causes youth unemployment so better policies and solutions can be developed.",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 14,

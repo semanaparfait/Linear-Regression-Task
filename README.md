@@ -41,8 +41,9 @@ The notebook covers:
 
 ### Models Compared
 
-The notebook compares a custom gradient-descent linear regression approach with scikit-learn models, including:
+The notebook compares four regression models built with scikit-learn:
 
+- `LinearRegression`
 - `SGDRegressor`
 - `DecisionTreeRegressor`
 - `RandomForestRegressor`
@@ -104,7 +105,7 @@ This is intentional because:
 
 `POST /retrain`
 
-This endpoint is included as a retraining trigger so the model can be refreshed when new data is received. In the current implementation, it runs the retraining task in the background as a deployment hook and should be extended to load new data, retrain, and resave the best model artifact.
+This endpoint is included as a retraining trigger so the model can be refreshed when new data is received. The current implementation runs the retraining task in the background, reloads the dataset, rebuilds the preprocessor, retrains the candidate models, and resaves the best model artifact.
 
 ## Flutter App
 
@@ -147,10 +148,10 @@ From the repository root:
 
 ```bash
 uv venv
-uv pip install -r summative/API/requirements.txt
+uv sync
 ```
 
-If you add a root `pyproject.toml`, install from that file and generate a lock file with `uv` for a cleaner submission.
+The repository now includes a root `pyproject.toml` and `uv.lock` for reproducible Python dependency management.
 
 ### Run the API locally
 

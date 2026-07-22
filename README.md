@@ -1,5 +1,3 @@
-
-
 ## Mission
 
 The project focuses on predicting youth unemployment rates across countries using historical unemployment data. The goal is to help identify patterns that can support targeted youth employment btn 18-25 policy and planning.
@@ -168,12 +166,4 @@ flutter pub get
 flutter run
 ```
 
-
-
 - Swagger UI: `https://linear-regression-task.onrender.com/docs`
-
-
-
-
-
-

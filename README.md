@@ -1,10 +1,8 @@
-# Youth Job Creation Predictor
 
-This repository contains a full machine learning deployment for predicting youth unemployment rates and supporting youth job creation policy planning.
 
 ## Mission
 
-The project focuses on a non-generic social and economic use case: predicting youth unemployment rates across countries using historical unemployment data. The goal is to help identify patterns that can support targeted youth employment policy and planning.
+The project focuses on predicting youth unemployment rates across countries using historical unemployment data. The goal is to help identify patterns that can support targeted youth employment btn 18-25 policy and planning.
 
 ## Dataset
 
@@ -169,31 +167,12 @@ flutter pub get
 flutter run
 ```
 
-## Deployment Notes
 
-For the submission demo, the API should be deployed to a public hosting platform such as Render.
 
-Replace the placeholder below with your live Swagger URL:
+- Swagger UI: `https://linear-regression-task.onrender.com/docs`
 
-- Swagger UI: `https://your-render-app.onrender.com/docs`
 
-Replace the Flutter app API URL in `lib/main.dart` if your deployed endpoint changes.
 
-## Video Demo Checklist
 
-Your 7-minute demo should show:
 
-1. The notebook and model comparison.
-2. The saved best model.
-3. Swagger UI prediction testing.
-4. Data type and range validation.
-5. The Flutter app making a live prediction.
-6. A brief explanation of why the selected model performed best.
-7. How retraining would work when new data arrives.
 
-## Notes for Submission
-
-- Keep the notebook, API, and Flutter app in the repository.
-- Include a valid `pyproject.toml` and `uv.lock` if you are managing the Python environment with `uv`.
-- Make sure the deployed API URL in the Flutter app matches the public Render endpoint.
-- Ensure the final notebook contains the exact saved model artifacts used by the API.

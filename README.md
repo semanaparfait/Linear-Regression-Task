@@ -4,7 +4,7 @@ The project focuses on predicting youth unemployment rates across countries usin
 
 ## Dataset
 
-Source file: `global_unemployment_data.csv`
+Source file: `https://www.kaggle.com/datasets/sazidthe1/global-unemployment-data`
 
 The dataset contains country-level unemployment records with:
 
@@ -25,7 +25,7 @@ Why this dataset fits the assignment:
 
 ## Notebook Workflow
 
-Main notebook: [Linear_Regression.ipynb](Linear_Regression.ipynb)
+Main notebook: [multivariate.ipynb](multivariate.ipynb)
 
 The notebook covers:
 
